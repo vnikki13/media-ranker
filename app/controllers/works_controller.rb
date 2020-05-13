@@ -1,8 +1,9 @@
 class WorksController < ApplicationController
   def index
+    @books = Work.where(category: 'book')
     @albums = Work.where(category: 'album')
-    @movies = Work.where(category: 'album')
-    @books = Work.where(category: 'album')
+    @movies = Work.where(category: 'movie')
+
   end
 
   def show
@@ -15,9 +16,7 @@ class WorksController < ApplicationController
 
   def update
     @work = Work.find_by(id: params[:id])
-    if @work.nil?
-      head :not_found
-    elsif @work.update(work_params)
+    if @work.update(work_params)
       redirect_to work_path(@work)
     else
       render :new

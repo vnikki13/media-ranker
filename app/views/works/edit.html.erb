@@ -1,7 +1,7 @@
-<h1>Add a new work</h1>
+<h1>Edit this <%= @work.category %></h1>
 <%= form_with model: @work do |f| %>
   <%= f.label :category %>
-  <%= f.select :categoty, ['movie', 'book', 'album'] %>
+  <%= f.select :category, ['movie', 'book', 'album'] %>
 
   <%= f.label :title %>
   <%= f.text_field :title %>
@@ -11,7 +11,7 @@
 
   <%= f.label :publication_year %>
   <%= f.text_field :publication_year %>
-  
+
   <%= f.label :description %>
   <%= f.text_field :description %>
   <%= f.submit %>
