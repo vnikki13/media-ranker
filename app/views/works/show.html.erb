@@ -1,0 +1,10 @@
+<h1>Showing the title <%= @work.title %></h1>
+
+<p>Created By: <%= @work.creator %></p>
+<p>Published: <%= @work.publication_year %></p>
+<%= @work.description %>
+
+<%= link_to "Back to Media Ranks", works_path %>
+<%= link_to "Edit", works_path %>
+<%= link_to "Delete", works_path %>
+
