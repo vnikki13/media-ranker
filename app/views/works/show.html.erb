@@ -5,6 +5,5 @@
 <%= @work.description %>
 
 <%= link_to "Back to Media Ranks", works_path %>
-<%= link_to "Edit", works_path %>
-<%= link_to "Delete", works_path %>
-
+<%= link_to "Edit", edit_work_path(@work) %>
+<%= link_to "Delete", work_path(@work), method: :delete %>
