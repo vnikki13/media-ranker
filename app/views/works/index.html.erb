@@ -1,5 +1,7 @@
 <h1>List of Works</h1>
 
+<%= link_to "New Media", new_work_path %>
+
 <h3>Albums</h3>
 <% @albums.each do |work| %>
   <%= link_to work.title, work_path(work) %>
