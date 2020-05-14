@@ -1,0 +1,31 @@
+<h1>homepage</h1>
+<h2>Media Spotlight:
+  <%= @spotlight.title %> by 
+  <%= @spotlight.creator %>
+</h2>
+<p><%= @spotlight.description %></p>
+
+<h3>Albums <%= @top_albums.count %> </h3> 
+
+<% @top_albums.each do |work| %>
+  <%= link_to work.title, work_path(work) %>
+  <%= work.creator %>
+  <%= work.publication_year %>
+  <%= work.description %>
+<% end %>
+
+<h3>Books <%= @top_books.count %> </h3>
+<% @top_books.each do |work| %>
+  <%= link_to work.title, work_path(work) %>
+  <%= work.creator %>
+  <%= work.publication_year %>
+  <%= work.description %>
+<% end %>
+
+<h3>Movies <%= @top_movies.count %></h3>
+<% @top_movies.each do |work| %>
+  <%= link_to work.title, work_path(work) %>
+  <%= work.creator %>
+  <%= work.publication_year %>
+  <%= work.description %>
+<% end %>
