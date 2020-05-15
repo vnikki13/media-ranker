@@ -1,5 +1,22 @@
 class Work < ApplicationRecord
-  
+  validates :title, presence: true
+  validate :unique_title_in_category
+  validates :publication_year, presence: true, format: {
+    with: /^\d\d\d\d$/, 
+    multiline: true,
+    message: 'must be four digits in length'
+  }
+
+  def unique_title_in_category
+    current_category = Work.where(category: self.category)
+    current_category.each do |work|
+      if work.title == self.title
+        errors.add(:title, "title already exists in category")
+        return
+      end
+    end
+  end
+
   def self.top_work
     num = rand(1..self.count)
     return self.find_by(id: num)

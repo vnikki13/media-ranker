@@ -48,27 +48,48 @@ describe WorksController do
   end
 
   describe 'create' do
-    it 'will create a new work and redirect to works show page' do
-      work_hash = {
+    let (:new_work_params) {
+      {
         work: {
-          title: "test work",
-          creator: "test creator",
-          publication_year: 2000,
-          description: "This is a test",
-          category: 'test' 
+          title: "new test work",
+          creator: "new test creator",
+          publication_year: 2020,
+          description: "This is a great test",
+          category: 'new test' 
         }
       }
+    }
 
-      expect{
-        post works_path, params: work_hash
-      }.must_differ "Work.count", 1
+    it 'will create a new work and redirect to works show page' do
+      expect{ post works_path, params: new_work_params }.must_differ "Work.count", 1
 
       new_work = Work.first
       must_redirect_to work_path(new_work.id)
     end
 
-    it 'will not create a new work with invalid params' do
-      # TODO
+    it 'will not create a new work while title is nil' do
+      new_work_params[:work][:title] = nil
+
+      expect{ post works_path, params: new_work_params }.wont_change 'Work.count'
+    end
+
+    it 'will not create work if title is present in the same category' do
+      expect{ post works_path, params: new_work_params }.must_differ "Work.count", 1
+      expect{ post works_path, params: new_work_params }.wont_change 'Work.count'
+
+      new_work_params[:work][:category] = 'new category'
+      expect{ post works_path, params: new_work_params }.must_differ 'Work.count', 1
+    end
+
+    it 'will not create a new work while publication year is nil or invalid' do
+      new_work_params[:work][:publication_year] = nil
+      expect{ post works_path, params: new_work_params }.wont_change 'Work.count'
+
+      new_work_params[:work][:publication_year] = 23
+      expect{ post works_path, params: new_work_params }.wont_change 'Work.count'
+
+      new_work_params[:work][:publication_year] = 23345345
+      expect{ post works_path, params: new_work_params }.wont_change 'Work.count'
     end
   end
 
@@ -85,6 +106,10 @@ describe WorksController do
   end
 
   describe 'update' do
+    before do
+      temp_work.save
+    end
+
     let (:new_work_params) {
       {
         work: {
@@ -98,8 +123,6 @@ describe WorksController do
     }
 
     it 'will update a current work and redirect to work page if found, and params are valid' do
-      temp_work.save
-
       work = Work.first
       expect{ patch work_path(work), params: new_work_params }.wont_change 'Work.count'
 
@@ -113,33 +136,45 @@ describe WorksController do
       must_redirect_to work_path(work)
     end
 
-    it 'will render form if work is not found' do
+    it 'will respond with missing if work is not found' do
       id = -1
       expect{ patch work_path(id), params: new_work_params }.wont_change 'Work.count'
       must_respond_with :missing
     end
 
-    it 'will not update a current book if params are invalid' do
-      # TODO
+    it 'will not update a current work if title is nil' do
+      work = Work.first
+      new_work_params[:work][:title] = nil
+      expect{ patch work_path(work), params: new_work_params }.wont_change 'Work.count'
+
+      work.reload
+      expect(work.title).must_equal temp_work[:title]
+    end
+
+    it 'will not update a current work if publication year is nil or invalid' do
+      work = Work.first
+
+      new_work_params[:work][:publication_year] = nil
+      expect{ patch work_path(work), params: new_work_params }.wont_change 'Work.count'
+      work.reload
+      expect(work.publication_year).must_equal temp_work[:publication_year]
+
+      new_work_params[:work][:publication_year] = 20904
+      expect{ patch work_path(work), params: new_work_params }.wont_change 'Work.count'
+      work.reload
+      expect(work.publication_year).must_equal temp_work[:publication_year]
     end
   end
 
   describe 'destroy' do
     it "destroys the work instance in db when work exists, then redirects" do
       temp_work.save
-
-      expect {
-        delete work_path(temp_work.id)
-      }.must_differ "Work.count", -1
- 
+      expect { delete work_path(temp_work.id) }.must_differ "Work.count", -1
       must_redirect_to works_path
     end
 
     it "does not change the db when the work does not exist, then responds with 404 " do
-      expect {
-        delete work_path(-1)
-      }.must_differ "Work.count", 0
- 
+      expect { delete work_path(-1) }.wont_change "Work.count"
       must_respond_with :missing
     end
   end
