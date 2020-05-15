@@ -41,10 +41,18 @@ describe Work do
   end
 
   describe 'top_work' do
-    
+    it 'should return the top voted work' do
+      # TODO
+    end
   end
 
   describe 'top_ten' do
-    
+    it 'should return the top 10 works for each category' do
+      # TODO
+    end
+
+    it 'should return all works if a category has less than 10 works' do
+      # TODO
+    end
   end
 end
