@@ -34,7 +34,9 @@ class WorksController < ApplicationController
 
   def update
     @work = Work.find_by(id: params[:id])
-    if @work.update(work_params)
+    if @work.nil?
+      head :not_found
+    elsif @work.update(work_params)
       redirect_to work_path(@work)
     else
       render :edit
