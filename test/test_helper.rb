@@ -11,11 +11,18 @@ Minitest::Reporters.use!(
 )
 
 class ActiveSupport::TestCase
-  # Run tests in parallel with specified workers
-  # parallelize(workers: :number_of_processors) # causes out of order output.
-
-  # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all
 
-  # Add more helper methods to be used by all tests here...
+  def login(username = 'Nikki')
+    # Arrange
+    user_hash = {
+          user: {
+            username: username
+            }
+          }
+    
+    post login_path, params: user_hash
+    user = User.find_by(username: username)
+    return user
+  end
 end
