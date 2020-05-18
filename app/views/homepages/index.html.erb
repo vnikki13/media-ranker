@@ -1,9 +1,13 @@
 <h1>homepage</h1>
-<h2>Media Spotlight:
-  <%= @spotlight.title %> by 
-  <%= @spotlight.creator %>
-</h2>
-<p><%= @spotlight.description %></p>
+<% if @spotlight.nil? %>
+  <h2>No Media to show</h2>
+<% else %>
+  <h2>Media Spotlight:
+    <%= @spotlight.title %> by 
+    <%= @spotlight.creator %>
+  </h2>
+  <p><%= @spotlight.description %></p>
+<% end %>
 
 <h3>Albums <%= @top_albums.count %> </h3> 
 
