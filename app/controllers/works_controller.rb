@@ -19,8 +19,10 @@ class WorksController < ApplicationController
   def create
     @work = Work.new(work_params)
     if @work.save
+      flash[:success] = "Successfully created #{@work.category} #{@work.id}"
       redirect_to work_path(@work)
     else
+      flash.now[:error] = "A problem occurred: Could not create #{@work.category}"
       render :new
     end
   end
@@ -37,19 +39,22 @@ class WorksController < ApplicationController
     if @work.nil?
       head :not_found
     elsif @work.update(work_params)
+      flash[:success] = "Successfully created #{@work.category} #{@work.id}"
       redirect_to work_path(@work)
     else
+      flash.now[:error] = "A problem occured: Could not update #{@work.category}"
       render :edit
     end
   end
 
   def destroy
-    work = Work.find_by(id: params[:id])
-    if work.nil?
+    @work = Work.find_by(id: params[:id])
+    if @work.nil?
       head :not_found
     else
-      work.destroy
-      redirect_to works_path
+      @work.destroy
+      flash[:success] = "Successfully destroyed #{@work.category} #{@work.id}"
+      redirect_to root_path
     end
   end
 

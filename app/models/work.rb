@@ -11,7 +11,7 @@ class Work < ApplicationRecord
     current_category = Work.where(category: self.category)
     current_category.each do |work|
       if work.title == self.title
-        errors.add(:title, "title already exists in category")
+        errors.add(:title, "already already been taken")
         return
       end
     end

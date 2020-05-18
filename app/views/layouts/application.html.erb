@@ -11,6 +11,25 @@
 
   <body>
     <%= render 'layouts/header' %>
+
+    <section class="flash-msg__section">
+      <% flash.each do |name, message| %>
+        <strong class="<%= name %>">
+          <%= message %>
+          <% if !@work.nil? && @work.errors.any? %>
+          <ul>
+            <% @work.errors.each do |error, message| %>
+            <li>
+              <strong><%= error.capitalize %></strong>
+              <%= message %>
+            </li>
+            <% end %>
+          <% end %>
+          </ul>
+        </strong>
+      <% end %>
+    </section>
+
     <%= yield %>
   </body>
 </html>
