@@ -44,6 +44,10 @@ describe Work do
     it 'should return the top voted work' do
       # TODO
     end
+
+    it 'should return an empty array if there are no works' do
+      # TODO
+    end
   end
 
   describe 'top_ten' do
@@ -52,6 +56,10 @@ describe Work do
     end
 
     it 'should return all works if a category has less than 10 works' do
+      # TODO
+    end
+
+    it 'should return nil if there are no works' do
       # TODO
     end
   end
