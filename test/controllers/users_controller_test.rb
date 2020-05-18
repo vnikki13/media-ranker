@@ -36,4 +36,31 @@ describe UsersController do
     end
   end
 
+  describe 'current user' do
+    it 'can return user page if the user is logged in' do
+      login()
+      get current_user_path
+      must_respond_with :success
+    end
+
+    it 'redirects us back if not logged in' do
+      get current_user_path
+      must_respond_with :redirect
+      expect(flash[:error]).must_equal "You must log in to do that"
+    end
+  end
+
+  describe 'validation' do
+    it "creates a new user if username is present and dosn't already exist" do
+      
+    end
+
+    it 'signs in user if username is already in database' do
+      
+    end
+
+    it 'does not allow a user to signin without a username' do
+      
+    end
+  end
 end

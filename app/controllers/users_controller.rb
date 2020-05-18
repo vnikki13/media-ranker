@@ -7,12 +7,13 @@ class UsersController < ApplicationController
     user = User.find_by(username: params[:user][:username])
     if user.nil?
       user = User.new(username: params[:user][:username])
-      if !user.save
-        flash[:error] = "unable to login"
-        redirect_to root_path
+      if user.save
+        flash[:welcome] = "Welcome #{user.username}"
+      else
+        flash.now[:error] = "unable to login"
+        render :login_form
         return
       end
-      flash[:welcome] = "Welcome #{user.username}"
     else
       flash[:welcome] = "Welcome back #{user.username}"
     end
@@ -35,5 +36,15 @@ class UsersController < ApplicationController
       flash[:error] = "You must be logged in to logout"
     end
     redirect_to root_path
+  end
+
+  def current
+    @user = User.find_by(id: session[:user_id])
+
+    if @user.nil?
+      flash[:error] = "You must log in to do that"
+      redirect_to root_path
+      return
+    end
   end
 end
