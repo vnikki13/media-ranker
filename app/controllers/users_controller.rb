@@ -4,21 +4,23 @@ class UsersController < ApplicationController
   end
 
   def login
-    user = User.find_by(username: params[:user][:username])
-    if user.nil?
-      user = User.new(username: params[:user][:username])
+    username = params[:user][:username]
+    user = User.find_by(username: username)
+    if user
+      session[:user_id] = user.id
+      flash[:success] = "Welcome back #{username}"
+    else
+      user = User.new(username: username)
       if user.save
-        flash[:welcome] = "Welcome #{user.username}"
+        flash[:success] = "Welcome #{username}"
+        session[:user_id] = user.id
       else
-        flash.now[:error] = "unable to login"
-        render :login_form
+        flash[:error] = "unable to login"
+        redirect_to login_path
         return
       end
-    else
-      flash[:welcome] = "Welcome back #{user.username}"
     end
 
-    session[:user_id] = user.id
     redirect_to root_path
   end
 
