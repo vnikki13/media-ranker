@@ -6,7 +6,7 @@
 
 <%= link_to "Back to Media Ranks", works_path %>
 <%= link_to "Edit", edit_work_path(@work) %>
-<%= link_to "Upvote" %>
+<%= link_to "Upvote", votes_create_path(vote: {work_id: @work}) %>
 <%= link_to "Delete", work_path(@work), method: :delete, data: {confirm: "Are you sure?"} %>
 
 <h3> Votes for this </h3>
