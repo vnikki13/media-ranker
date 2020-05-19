@@ -1,1 +1,18 @@
-<h1>User Summary:<%= @user.username %> </h1>
+<h1>User Summary: <%= @user.username %></h1>
+<p>Joined site <%= @user.joined %></p>
+
+<h3>Votes</h3>
+<ul>
+  <% @user.works.each do |work| %>
+    <li>
+    <%= work.title %>
+    <%= work.creator %>
+    <%= work.publication_year %>
+    <%= work.category %>
+    <%= Vote.find_by(user_id: @user.id).voted_on %>
+    </li>
+  <% end %>
+</ul>
+
+<%= link_to "See all Users", users_path %>
+<%= link_to "Back to Media List", works_path %>
