@@ -1,4 +1,9 @@
 class UsersController < ApplicationController
+  
+  def index
+    @users = User.all
+  end
+
   def login_form
     @user = User.new
   end
@@ -10,7 +15,7 @@ class UsersController < ApplicationController
       session[:user_id] = user.id
       flash[:success] = "Successfully logged in as existing user #{username}"
     else
-      user = User.new(username: username)
+      user = User.new(username: username, joined: Date.today)
       if user.save
         flash[:success] = "Successfully created new user #{username} with ID #{user.id}"
         session[:user_id] = user.id
