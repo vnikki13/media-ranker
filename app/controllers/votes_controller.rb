@@ -4,7 +4,7 @@ class VotesController < ApplicationController
     if @vote.save
       flash[:success] = "upvote successful"
     else
-      flash[:error] = 'Unsuccessful upvote'
+      flash[:error] = 'A problem occured: Could not upvote'
     end
 
     redirect_to works_path
