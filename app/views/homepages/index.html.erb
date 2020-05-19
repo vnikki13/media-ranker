@@ -1,4 +1,3 @@
-<h1>homepage</h1>
 <% if @spotlight.nil? %>
   <h2>No Media to show</h2>
 <% else %>
@@ -6,33 +5,43 @@
     <%= @spotlight.title %> by 
     <%= @spotlight.creator %>
   </h2>
-  <p><%= @spotlight.description %></p>
+  <p>
+    <%= @spotlight.votes.count %> votes - 
+    <%= @spotlight.description %>
+  </p>
 <% end %>
 
-<h3>Albums <%= @top_albums.count %> </h3> 
+<h3>Top Albums <%= @top_albums.count %> </h3> 
+<ul>
+  <% @top_albums.each do |work| %>
+  <li>
+    <%= link_to work.title, work_path(work) %> by
+    <%= work.creator %>
+    <%= work.votes.count %> votes
+  </li>
+  <% end %>
+</ul>
 
-<% @top_albums.each do |work| %>
-  <%= work.votes.count %> 
-  <%= link_to work.title, work_path(work) %>
-  <%= work.creator %>
-  <%= work.publication_year %>
-  <%= work.description %>
-<% end %>
 
-<h3>Books <%= @top_books.count %> </h3>
-<% @top_books.each do |work| %>
-  <%= work.votes.count %>
-  <%= link_to work.title, work_path(work) %>
-  <%= work.creator %>
-  <%= work.publication_year %>
-  <%= work.description %>
-<% end %>
+<h3>Top Books <%= @top_books.count %> </h3>
+<ul>
+  <% @top_books.each do |work| %>
+  <li>
+    <%= link_to work.title, work_path(work) %> by
+    <%= work.creator %>
+    <%= work.votes.count %> votes
+  </li>
+  <% end %>
+</ul>
 
-<h3>Movies <%= @top_movies.count %></h3>
-<% @top_movies.each do |work| %>
-  <%= work.votes.count %> 
-  <%= link_to work.title, work_path(work) %>
-  <%= work.creator %>
-  <%= work.publication_year %>
-  <%= work.description %>
-<% end %>
+
+<h3>Top Movies <%= @top_movies.count %></h3>
+<ul>
+  <% @top_movies.each do |work| %>
+  <li>
+    <%= link_to work.title, work_path(work) %> by
+    <%= work.creator %>
+    <%= work.votes.count %> votes
+  </li>
+  <% end %>
+</ul>

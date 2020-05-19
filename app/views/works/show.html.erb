@@ -1,4 +1,4 @@
-<h1>Showing the title <%= @work.title %></h1>
+<h1><%= @work.title %></h1>
 
 <p>Created By: <%= @work.creator %></p>
 <p>Published: <%= @work.publication_year %></p>
@@ -9,10 +9,13 @@
 <%= link_to "Upvote", votes_create_path(vote: {work_id: @work}) %>
 <%= link_to "Delete", work_path(@work), method: :delete, data: {confirm: "Are you sure?"} %>
 
-<h3> Votes for this </h3>
+<h3> <%= @work.users.count %> Votes for this <%= @work.category.capitalize %></h3>
 <%= "no votes to show" if @work.users.count == 0 %>
 <ul>
   <% @work.users.each do |user| %>
-    <li><%= user.username %></li>
+    <li>
+      <%= user.username %>
+      <%= user.votes.find_by(work_id: @work.id).voted_on %>
+    </li>
   <% end %>
 </ul>

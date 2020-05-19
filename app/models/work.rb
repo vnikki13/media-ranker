@@ -35,23 +35,27 @@ class Work < ApplicationRecord
   end
 
   def self.sort_by_votes(works)
-    votes = {}
+    works_with_votes = {}
     works.each do |work|
-      votes[work] = work.votes.count
+      works_with_votes[work] = work.votes.count
     end
-    sorted_votes = votes.sort_by { |work, votes| votes }
+    ordered_works_with_votes = works_with_votes.sort_by { |work, votes| votes }
+    ordered_works = []
+    ordered_works_with_votes.each do |work|
+      ordered_works.unshift(work[0])
+    end
+    return ordered_works
   end
 
   def self.top_ten(category)
     works = self.where(category: category)
 
     sorted_votes = sort_by_votes(works)
-    
-    top_votes = []
-    sorted_votes.each do |vote|
-        top_votes.unshift(vote[0])
-    end
 
-    return top_votes
+    if sorted_votes.length <= 10
+      return sorted_votes
+    else
+      return sorted_votes[0..9]
+    end
   end
 end
