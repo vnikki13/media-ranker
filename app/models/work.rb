@@ -1,4 +1,7 @@
 class Work < ApplicationRecord
+  has_many :votes
+  has_many :users, through: :votes
+
   validates :title, presence: true
   validate :unique_title_in_category
   validates :publication_year, presence: true, format: {
@@ -6,6 +9,7 @@ class Work < ApplicationRecord
     multiline: true,
     message: 'must be four digits in length'
   }
+
 
   def unique_title_in_category
     current_category = Work.where(category: self.category)
