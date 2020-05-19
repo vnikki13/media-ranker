@@ -8,14 +8,14 @@ class UsersController < ApplicationController
     user = User.find_by(username: username)
     if user
       session[:user_id] = user.id
-      flash[:success] = "Welcome back #{username}"
+      flash[:success] = "Successfully logged in as existing user #{username}"
     else
       user = User.new(username: username)
       if user.save
-        flash[:success] = "Welcome #{username}"
+        flash[:success] = "Successfully created new user #{username} with ID #{user.id}"
         session[:user_id] = user.id
       else
-        flash[:error] = "unable to login"
+        flash[:error] = "A problem occured: Could not log in"
         redirect_to login_path
         return
       end
@@ -29,7 +29,7 @@ class UsersController < ApplicationController
       user = User.find_by(id: session[:user_id])
       unless user.nil?
         session[:user_id] = nil
-        flash[:notice] = "Goodbye #{user.username}"
+        flash[:notice] = "Successfully logged out"
       else
         session[:user_id] = nil
         flash[:notice] = "Error Unknown User"

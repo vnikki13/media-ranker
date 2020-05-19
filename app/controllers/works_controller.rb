@@ -1,7 +1,5 @@
 class WorksController < ApplicationController
 
-  before_action :require_login, only: [:edit, :update, :destroy]
-
   def index
     @books = Work.where(category: 'book')
     @albums = Work.where(category: 'album')
