@@ -12,6 +12,7 @@
 <h3>Albums <%= @top_albums.count %> </h3> 
 
 <% @top_albums.each do |work| %>
+  <%= work.votes.count %> 
   <%= link_to work.title, work_path(work) %>
   <%= work.creator %>
   <%= work.publication_year %>
@@ -20,6 +21,7 @@
 
 <h3>Books <%= @top_books.count %> </h3>
 <% @top_books.each do |work| %>
+  <%= work.votes.count %>
   <%= link_to work.title, work_path(work) %>
   <%= work.creator %>
   <%= work.publication_year %>
@@ -28,6 +30,7 @@
 
 <h3>Movies <%= @top_movies.count %></h3>
 <% @top_movies.each do |work| %>
+  <%= work.votes.count %> 
   <%= link_to work.title, work_path(work) %>
   <%= work.creator %>
   <%= work.publication_year %>

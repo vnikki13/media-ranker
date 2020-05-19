@@ -15,27 +15,43 @@ class Work < ApplicationRecord
     current_category = Work.where(category: self.category)
     current_category.each do |work|
       if work.title == self.title
-        errors.add(:title, "already already been taken")
+        errors.add(:title, "already been taken")
         return
       end
     end
   end
 
   def self.top_work
-    num = rand(1..self.count)
-    return self.find_by(id: num)
+    most_votes = 0
+    top_work = nil
+    self.all.each do |work|
+      votes = work.votes.count
+      if votes > most_votes
+        most_votes = votes
+        top_work = work 
+      end
+    end
+    return top_work
+  end
+
+  def self.sort_by_votes(works)
+    votes = {}
+    works.each do |work|
+      votes[work] = work.votes.count
+    end
+    sorted_votes = votes.sort_by { |work, votes| votes }
   end
 
   def self.top_ten(category)
-    all_works = self.where(category: category)
-    top_works = []
-    if all_works.length > 10
-      10.times do
-        top_works << all_works.sample
-      end
-    else
-      return all_works
+    works = self.where(category: category)
+
+    sorted_votes = sort_by_votes(works)
+    
+    top_votes = []
+    sorted_votes.each do |vote|
+        top_votes.unshift(vote[0])
     end
-    return top_works
+
+    return top_votes
   end
 end
