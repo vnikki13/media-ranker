@@ -11,6 +11,9 @@ describe WorksController do
 
   describe 'index' do
     it 'responds with success if there are no works saved' do
+      works(:new_work).delete
+      works(:test_work).delete
+
       works_count = Work.all.count
       expect(works_count).must_equal 0
 
@@ -19,9 +22,8 @@ describe WorksController do
     end
 
     it 'responds with success if there are works saved' do
-      temp_work.save
       works_count = Work.all.count
-      expect(works_count).must_equal 1
+      expect(works_count).must_equal 2
 
       get works_path
       must_respond_with :success
@@ -63,8 +65,8 @@ describe WorksController do
     it 'will create a new work and redirect to works show page' do
       expect{ post works_path, params: new_work_params }.must_differ "Work.count", 1
 
-      new_work = Work.first
-      must_redirect_to work_path(new_work.id)
+      new_test_work = Work.last
+      must_redirect_to work_path(new_test_work)
     end
 
     it 'will not create a new work while title is nil' do
@@ -143,7 +145,7 @@ describe WorksController do
     end
 
     it 'will not update a current work if title is nil' do
-      work = Work.first
+      work = Work.last
       new_work_params[:work][:title] = nil
       expect{ patch work_path(work), params: new_work_params }.wont_change 'Work.count'
 
@@ -152,7 +154,7 @@ describe WorksController do
     end
 
     it 'will not update a current work if publication year is nil or invalid' do
-      work = Work.first
+      work = Work.last
 
       new_work_params[:work][:publication_year] = nil
       expect{ patch work_path(work), params: new_work_params }.wont_change 'Work.count'
@@ -170,7 +172,7 @@ describe WorksController do
     it "destroys the work instance in db when work exists, then redirects" do
       temp_work.save
       expect { delete work_path(temp_work.id) }.must_differ "Work.count", -1
-      must_redirect_to works_path
+      must_redirect_to root_path
     end
 
     it "does not change the db when the work does not exist, then responds with 404 " do
