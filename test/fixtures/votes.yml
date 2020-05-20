@@ -1,0 +1,8 @@
+one:
+  user: valid
+  work: new_work
+
+two:
+  user: valid
+  work: new_work
+  voted_on: <%= Date.today %>
