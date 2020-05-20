@@ -9,7 +9,7 @@
     <%= work.creator %>
     <%= work.publication_year %>
     <%= work.category %>
-    <%= Vote.find_by(user_id: @user.id).voted_on %>
+    <%= Vote.find_by(work_id: work).voted_on %>
     </li>
   <% end %>
 </ul>
