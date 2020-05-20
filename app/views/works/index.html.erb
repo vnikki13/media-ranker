@@ -9,7 +9,8 @@
       <%= work.creator %>
       <%= work.publication_year %>
       <%= work.description %>
-      <%= link_to "Upvote", votes_create_path(vote: {work_id: @work}) %>
+      <%= work.id %>
+      <%= link_to "Upvote", votes_create_path(vote: {work_id: work}) %>
     </li>
   <% end %>
 </ul>
@@ -23,7 +24,7 @@
       <%= work.creator %>
       <%= work.publication_year %>
       <%= work.description %>
-      <%= link_to "Upvote", votes_create_path(vote: {work_id: @work}) %>
+      <%= link_to "Upvote", votes_create_path(vote: {work_id: work}) %>
     </li>
   <% end %>
 </ul>
@@ -37,7 +38,7 @@
       <%= work.creator %>
       <%= work.publication_year %>
       <%= work.description %>
-      <%= link_to "Upvote", votes_create_path(vote: {work_id: @work}) %>
+      <%= link_to "Upvote", votes_create_path(vote: {work_id: work}) %>
     </li>
   <% end %>
 </ul>
