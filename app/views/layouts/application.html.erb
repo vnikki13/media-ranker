@@ -14,7 +14,7 @@
       <%= render 'layouts/header' %>
     </header>
 
-    <section class="flash-msg__section">
+    <section class="alert_container">
       <% flash.each do |name, message| %>
         <strong class="<%= name %>">
           <%= message %>
@@ -32,6 +32,8 @@
       <% end %>
     </section>
 
-    <%= yield %>
+    <main>
+      <%= yield %>
+    </main>
   </body>
 </html>

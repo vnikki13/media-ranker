@@ -1,3 +1,87 @@
-// Place all the styles related to the homepages controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: https://sass-lang.com/
+.spotlight {
+  padding: 0 2rem 2rem 2rem;
+}
+
+section .spotlight {
+  display: block;
+  padding: 0px 32px;
+}
+
+.spotlight__header--prefix {
+  color: #424242;
+}
+
+.spotlight__header {
+  color: #26A69A;
+}
+
+h2 {
+  font-weight: bold;
+  font-size: 2rem;
+  line-height: 1.2;
+}
+
+.link-to:hover, .link-to:focus, .link-to:active, .link-to.active, .open>.dropdown-toggle.link-to {
+  color: #fff;
+  background-color:  rgb(17, 233, 211);
+  text-decoration: none;
+}
+
+.spotlight__link-to {
+  border-bottom: 2px solid;
+  color: #26A69A;
+  text-decoration: none;
+  background-color: transparent;
+}
+
+.spotlight__header a:hover {
+  text-decoration: none;
+  color: rgb(27, 110, 102);
+}
+
+.root__hr {
+  margin: 0px auto 3rem auto;
+}
+
+.top-ten__container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-column-gap: 2em; 
+  column-gap: 2em;
+}
+
+.top-ten__header {
+  color: #26A69A;
+  border-bottom: 2px solid;
+  border-bottom-color: #B2DFDB;
+}
+
+.list-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0;
+}
+
+.top-ten__list {
+  list-style-type: none;
+  margin-left: 0;
+  padding-left: 0;
+}
+
+.list-group-item {
+  border: none;
+}
+
+.list-group-item h4 a {
+  color: #26A69A;
+  text-decoration: none;
+  font-size: 1.5rem;
+  font-weight: bold;
+  line-height: 1.2;
+}
+
+.top-ten__creator {
+  color: slategrey;
+  font-size: 80%;
+  font-weight: 400;
+}
