@@ -12,7 +12,7 @@ class Work < ApplicationRecord
 
   scope :by_category, -> (category) { where(category: category) }
   scope :sort_votes, -> { left_joins(:votes).group(:id).order('COUNT(votes.id) DESC')}
-  scope :top_rating, -> { limit(5) }
+  scope :top_rating, -> { limit(10) }
 
   def unique_title_in_category
     current_category = Work.by_category(self.category)
