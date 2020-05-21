@@ -1,47 +1,83 @@
-<h1>List of Works</h1>
+<h2>List of Works</h2>
 
-<h3>Albums</h3>
-<ul>
-  <% @albums.each do |work| %>
-  <li>
-      <%= work.votes.count%>
-      <%= link_to work.title, work_path(work) %>
-      <%= work.creator %>
-      <%= work.publication_year %>
-      <%= work.description %>
-      <%= work.id %>
-      <%= link_to "Upvote", votes_create_path(vote: {work_id: work}) %>
-    </li>
-  <% end %>
-</ul>
+<section class='media-table'>
+  <h4>Albums</h4>
+  <table class='table'>
+    <thead>
+      <tr>
+        <th width='80'>Votes</th>
+        <th>Title</th>
+        <th>Created By</th>
+        <th width='100'>Published</th>
+        <th width='100'>Upvote</th>
+      </tr>
+    </thead>
+    <% @albums.each do |work| %>
+    <tbody>
+      <tr>
+        <td><%= work.votes.count%></td>
+        <td><%= link_to work.title, work_path(work) %></td>
+        <td><%= work.creator %></td>
+        <td><%= work.publication_year %></td>
+        <td><%= link_to "Upvote", votes_create_path(vote: {work_id: work}), class: 'btn btn-primary' %></td>
+      </tr>
+      </tbody>
+    <% end %>
+  </table>
+</section>
 
-<h3>Books</h3>
-<ul>
-  <% @books.each do |work| %>
-  <li>
-      <%= work.votes.count%>
-      <%= link_to work.title, work_path(work) %>
-      <%= work.creator %>
-      <%= work.publication_year %>
-      <%= work.description %>
-      <%= link_to "Upvote", votes_create_path(vote: {work_id: work}) %>
-    </li>
-  <% end %>
-</ul>
 
-<h3>Movies</h3>
-<ul>
-  <% @movies.each do |work| %>
-  <li>
-      <%= work.votes.count%>
-      <%= link_to work.title, work_path(work) %>
-      <%= work.creator %>
-      <%= work.publication_year %>
-      <%= work.description %>
-      <%= link_to "Upvote", votes_create_path(vote: {work_id: work}) %>
-    </li>
-  <% end %>
-</ul>
+<section class='media-table'>
+  <h4>Books</h4>
+  <table class='table'>
+    <thead>
+      <tr>
+        <th width='80'>Votes</th>
+        <th>Title</th>
+        <th>Created By</th>
+        <th width='100'>Published</th>
+        <th width='100'>Upvote</th>
+      </tr>
+    </thead>
+    <% @books.each do |work| %>
+    <tbody>
+      <tr>
+        <td><%= work.votes.count%></td>
+        <td><%= link_to work.title, work_path(work) %></td>
+        <td><%= work.creator %></td>
+        <td><%= work.publication_year %></td>
+        <td><%= link_to "Upvote", votes_create_path(vote: {work_id: work}), class: 'btn btn-primary' %></td>
+      </tr>
+      </tbody>
+    <% end %>
+  </table>
+</section>
 
-<%= link_to "View Top Media", root_path %>
-<%= link_to "New Media", new_work_path %>
+<section class='media-table'>
+  <h4>Movies</h4>
+  <table class='table'>
+    <thead>
+      <tr>
+        <th width='80'>Votes</th>
+        <th>Title</th>
+        <th>Created By</th>
+        <th width='100'>Published</th>
+        <th width='100'>Upvote</th>
+      </tr>
+    </thead>
+    <% @movies.each do |work| %>
+    <tbody>
+      <tr>
+        <td><%= work.votes.count%></td>
+        <td><%= link_to work.title, work_path(work) %></td>
+        <td><%= work.creator %></td>
+        <td><%= work.publication_year %></td>
+        <td><%= link_to "Upvote", votes_create_path(vote: {work_id: work}), class: 'btn btn-primary' %></td>
+      </tr>
+      </tbody>
+    <% end %>
+  </table>
+</section>
+
+<%= link_to "View top media", root_path, class: 'btn btn-secondary' %>
+<%= link_to "Add a new work", new_work_path, class: 'btn btn-primary' %>

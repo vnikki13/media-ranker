@@ -105,7 +105,13 @@ body {
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active {
   color: #fff;
   background-color:  rgb(27, 110, 102);
-  border-color: rgb(25, 75, 122);
+  border-color: rgb(34, 96, 155);
+}
+
+.btn-secondary:hover, .btn-secondary:focus, .btn-secondary:active {
+  color: #fff;
+  background-color:  rgb(27, 110, 102);
+  border-color: rgb(5, 14, 24);
 }
 
 main {
