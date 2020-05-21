@@ -1,21 +1,36 @@
-<h1><%= @work.title %></h1>
+<section>
+  <h2><%= @work.title %></h2>
+  <p>Created by: <%= @work.creator %></p>
+  <p>Published: <%= @work.publication_year %></p>
+  <p><%= @work.description %></p>
 
-<p>Created By: <%= @work.creator %></p>
-<p>Published: <%= @work.publication_year %></p>
-<%= @work.description %>
+  <section>
+    <%= link_to "Back to media ranks", works_path, class:'btn btn-primary' %>
+    <%= link_to "Edit", edit_work_path(@work), class:'btn btn-primary' %>
+    <%= link_to "Upvote", votes_create_path(vote: {work_id: @work}), class:'btn btn-primary' %>
+    <%= link_to "Delete", work_path(@work), method: :delete, data: {confirm: "Are you sure?"}, class:'btn btn-danger' %>
+  </section>
+</section>
 
-<%= link_to "Back to Media Ranks", works_path %>
-<%= link_to "Edit", edit_work_path(@work) %>
-<%= link_to "Upvote", votes_create_path(vote: {work_id: @work}) %>
-<%= link_to "Delete", work_path(@work), method: :delete, data: {confirm: "Are you sure?"} %>
+<section class='works-votes__container'>
+  <h3 class='works-votes__header'>
+    <%= @work.users.count %> Votes for this <%= @work.category.capitalize %>
+  </h3>
+  <table class='table'>
+    <thead>
+      <tr>
+        <th>User</th>
+        <th>Date</th>
+      </tr>
+    </thead>
 
-<h3> <%= @work.users.count %> Votes for this <%= @work.category.capitalize %></h3>
-<%= "no votes to show" if @work.users.count == 0 %>
-<ul>
-  <% @work.users.each do |user| %>
-    <li>
-      <%= user.username %>
-      <%= user.votes.find_by(work_id: @work.id).voted_on %>
-    </li>
-  <% end %>
-</ul>
+    <% @work.users.each do |user| %>
+    <tbody>
+      <tr>
+        <td><%= link_to user.username, user_path(user) %></td>
+        <td><%= user.votes.find_by(work_id: @work.id).voted_on %></td>
+      </tr>
+    </tbody>
+    <% end %>
+  </table>
+</section>
