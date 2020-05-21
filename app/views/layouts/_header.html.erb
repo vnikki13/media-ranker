@@ -1,12 +1,42 @@
-<nav>
-  <%= link_to "View top media", root_path %>
-  <%= link_to "View all media", works_path %>
-  <%= link_to "Add a new work", new_work_path %>
-  <%= link_to "View all users", users_path %>
-  <% if session[:user_id] %>
-    <%= link_to "Logout", logout_path, method: :post %>
-    <%= link_to "Logged in as #{User.find_by(id: session[:user_id]).username}", current_user_path %>
-  <% else %>
-    <%= link_to "Log in", login_path %>
-  <% end %>
+<h1>
+  <%= link_to "Media Ranker", root_path %>
+  <small>Ranking the Best of Everything</small>
+</h1>
+
+<nav class='app-header__nav'>
+  <ul class='nav app-header__site-nav-container'>
+    <li class='nav-item app-header__nav_item'>
+      <%= link_to "View top media", root_path, class: 'nav-link' %>
+    </li>
+
+    <li class='nav-item app-header_nav_item'>
+      <%= link_to "View all media", works_path, class: 'nav-link' %>
+    </li>
+
+    <li class='nav-item app-header_nav_item'>
+      <%= link_to "Add a new work", new_work_path, class: 'nav-link' %>
+    </li>
+
+    <li class='nav-item app-header_nav_item'>
+      <%= link_to "View all users", users_path, class: 'nav-link' %>
+    </li>
+  </ul>
+
+  <ul class='nav app-header__user-nav-container'>
+    <% if session[:user_id] %>
+      <li class='nav-item app-header__nav_item'>
+        <%= link_to "Logout", logout_path, method: :post, class: 'btn btn-primary' %>
+      </li>
+
+      <li class='nav-item app-header__nav_item'>
+        <%= link_to "Logged in as #{User.find_by(id: session[:user_id]).username}", current_user_path, class: 'btn btn-primary'  %>
+      </li>
+
+    <% else %>
+      <li class='nav-item app-header__nav_item'>
+        <%= link_to "Log in", login_path, class: 'btn btn-primary'  %>
+      </li>
+    <% end %>
+  </ul>  
 </nav>
+

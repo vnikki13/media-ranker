@@ -10,7 +10,9 @@
   </head>
 
   <body>
-    <%= render 'layouts/header' %>
+    <header class="app-header__header">
+      <%= render 'layouts/header' %>
+    </header>
 
     <section class="flash-msg__section">
       <% flash.each do |name, message| %>
