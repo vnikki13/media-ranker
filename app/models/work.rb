@@ -4,11 +4,6 @@ class Work < ApplicationRecord
 
   validates :title, presence: true
   validate :unique_title_in_category
-  validates :publication_year, presence: true, format: {
-    with: /^\d\d\d\d$/, 
-    multiline: true,
-    message: 'must be four digits in length'
-  }
 
   scope :by_category, -> (category) { where(category: category) }
   scope :sort_votes, -> { left_joins(:votes).group(:id).order('COUNT(votes.id) DESC')}
@@ -18,7 +13,7 @@ class Work < ApplicationRecord
     current_category = Work.by_category(self.category)
     current_category.each do |work|
       if work.title == self.title
-        errors.add(:title, "already been taken")
+        errors.add(:title, "has already been taken")
         return
       end
     end

@@ -72,9 +72,9 @@
         <td><%= link_to work.title, work_path(work) %></td>
         <td><%= work.creator %></td>
         <td><%= work.publication_year %></td>
-        <td><%= link_to "Upvote", votes_create_path(vote: {work_id: work}), class: 'btn btn-primary' %></td>
+        <td><%= link_to "Upvote", votes_create_path(vote: {work_id: work.id}), class: 'btn btn-primary' %></td>
       </tr>
-      </tbody>
+    </tbody>
     <% end %>
   </table>
 </section>

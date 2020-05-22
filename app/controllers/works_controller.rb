@@ -23,7 +23,8 @@ class WorksController < ApplicationController
       flash[:success] = "Successfully created #{@work.category} #{@work.id}"
       redirect_to work_path(@work)
     else
-      flash.now[:error] = "A problem occurred: Could not create #{@work.category}"
+      flash.now[:warning] = "A problem occurred: Could not create #{@work.category}"
+      flash.now[:details] = @work.errors.messages
       render :new
     end
   end
@@ -43,7 +44,8 @@ class WorksController < ApplicationController
       flash[:success] = "Successfully created #{@work.category} #{@work.id}"
       redirect_to work_path(@work)
     else
-      flash.now[:error] = "A problem occured: Could not update #{@work.category}"
+      flash.now[:warning] = "A problem occured: Could not update #{@work.category}"
+      flash.now[:details] = @work.errors.messages
       render :edit
     end
   end

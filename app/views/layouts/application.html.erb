@@ -23,7 +23,10 @@
           <% if flash[:details] %>
             <ul>
             <% flash[:details].each do |msg| %>
-              <li><%= msg[0] %>: <%= msg[1].join(', ') %></li>
+              <% msg %>
+              <% if !msg[1].empty? %>
+                <li><%= msg[0] %>: <%= msg[1].join(', ') %></li>
+              <% end %>
             <% end %>
             </ul>
           <% end %>
