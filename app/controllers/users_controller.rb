@@ -50,14 +50,4 @@ class UsersController < ApplicationController
     end
     redirect_to root_path
   end
-
-  def current
-    @user = User.find_by(id: session[:user_id])
-
-    if @user.nil?
-      flash[:warning] = "You must log in to do that"
-      redirect_to root_path
-      return
-    end
-  end
 end
