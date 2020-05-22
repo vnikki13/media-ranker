@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   def require_login
     if current_user.nil?
       flash[:error] = "A Problem occured: You must log in to do that"
-      redirect_to work_path(params[:vote][:work_id])
+      redirect_back(fallback_location: "/")
     end
   end
 end

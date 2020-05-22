@@ -11,6 +11,6 @@ class VotesController < ApplicationController
       flash[:details] = @vote.errors.messages
     end
 
-    redirect_to works_path
+    redirect_back(fallback_location: "/")
   end
 end

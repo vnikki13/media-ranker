@@ -1,0 +1,16 @@
+<% flash.each do |type, message| %>
+  <% next if type == 'details' %>
+  <div class="alert alert-<%= type %>">
+    <%= message %>
+    <% if flash[:details] %>
+      <ul>
+      <% flash[:details].each do |msg| %>
+        <% msg %>
+        <% if !msg[1].empty? %>
+          <li><%= msg[0] %>: <%= msg[1].join(', ') %></li>
+        <% end %>
+      <% end %>
+      </ul>
+    <% end %>
+  </div>
+<% end %>
