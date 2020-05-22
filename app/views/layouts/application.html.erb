@@ -14,21 +14,20 @@
       <%= render 'layouts/header' %>
     </header>
 
+
     <section class="alert_container">
-      <% flash.each do |name, message| %>
-        <strong class="<%= name %>">
+      <% flash.each do |type, message| %>
+        <% next if type == 'details' %>
+        <div class="alert alert-<%= type %>">
           <%= message %>
-          <% if !@work.nil? && @work.errors.any? %>
-          <ul>
-            <% @work.errors.each do |error, message| %>
-            <li>
-              <strong><%= error.capitalize %></strong>
-              <%= message %>
-            </li>
+          <% if flash[:details] %>
+            <ul>
+            <% flash[:details].each do |msg| %>
+              <li><%= msg[0] %>: <%= msg[1].join(', ') %></li>
             <% end %>
+            </ul>
           <% end %>
-          </ul>
-        </strong>
+        </div>
       <% end %>
     </section>
 

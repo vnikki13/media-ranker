@@ -24,8 +24,10 @@ class UsersController < ApplicationController
         flash[:success] = "Successfully created new user #{username} with ID #{user.id}"
         session[:user_id] = user.id
       else
-        flash[:error] = "A problem occured: Could not log in"
-        redirect_to login_path
+        flash.now[:warning] = "A problem occured: Could not log in"
+        flash.now[:details] = user.errors.messages
+
+        render :login_form
         return
       end
     end
