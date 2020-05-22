@@ -22,22 +22,6 @@ describe Work do
       result = new_work.valid?
       expect(result).must_equal false
     end
-
-    it 'is invalid if publication_year is missing' do
-      @work.publication_year = nil
-      result = @work.valid?
-      expect(result).must_equal false
-    end
-
-    it 'is invalid if publication_year is less than or more than 4 digits long' do
-      @work.publication_year = 345
-      first_result = @work.valid?
-      expect(first_result).must_equal false
-
-      @work.publication_year = 345383993
-      second_result = @work.valid?
-      expect(second_result).must_equal false
-    end
   end
 
   describe 'top_work' do
@@ -79,6 +63,21 @@ describe Work do
 
       expect(Work.all.count).must_equal 0
       expect(Work.top_ten("test")).must_equal []
+    end
+  end
+
+  describe 'relations' do
+    before do
+      @new_work = Work.create!(title: 'test')
+      @vote = Vote.new(user: users(:valid))
+    end
+
+    it "can set work through 'work'" do
+      @vote.work = @new_work
+    end
+
+    it "can set work through 'work_id'" do
+      @vote.work_id = @new_work
     end
   end
 end

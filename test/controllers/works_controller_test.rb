@@ -82,17 +82,6 @@ describe WorksController do
       new_work_params[:work][:category] = 'new category'
       expect{ post works_path, params: new_work_params }.must_differ 'Work.count', 1
     end
-
-    it 'will not create a new work while publication year is nil or invalid' do
-      new_work_params[:work][:publication_year] = nil
-      expect{ post works_path, params: new_work_params }.wont_change 'Work.count'
-
-      new_work_params[:work][:publication_year] = 23
-      expect{ post works_path, params: new_work_params }.wont_change 'Work.count'
-
-      new_work_params[:work][:publication_year] = 23345345
-      expect{ post works_path, params: new_work_params }.wont_change 'Work.count'
-    end
   end
 
   describe 'edit' do
@@ -151,20 +140,6 @@ describe WorksController do
 
       work.reload
       expect(work.title).must_equal temp_work[:title]
-    end
-
-    it 'will not update a current work if publication year is nil or invalid' do
-      work = Work.last
-
-      new_work_params[:work][:publication_year] = nil
-      expect{ patch work_path(work), params: new_work_params }.wont_change 'Work.count'
-      work.reload
-      expect(work.publication_year).must_equal temp_work[:publication_year]
-
-      new_work_params[:work][:publication_year] = 20904
-      expect{ patch work_path(work), params: new_work_params }.wont_change 'Work.count'
-      work.reload
-      expect(work.publication_year).must_equal temp_work[:publication_year]
     end
   end
 
